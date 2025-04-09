@@ -555,6 +555,6 @@ CSS TABLE OF CONTENTS
 	// Change the root color area end here ***
 
 	// WOW Animatin area start here ***
-	new WOW().init();
+	//new WOW().init();
 	// WOW Animatin area start here ***
 })(jQuery);

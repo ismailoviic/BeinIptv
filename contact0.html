@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire de Contact IPTV</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .form-container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        button { margin-top: 20px; padding: 10px 20px; background: #1e90ff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0f78d4; }
+        .message { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Contactez-nous</h2>
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Votre nom" required>
+            <input type="email" name="email" placeholder="Votre email" required>
+            <select name="subject" required>
+                <option value="">Sélectionnez le sujet</option>
+                <option value="Compte">Compte</option>
+                <option value="Service">Service</option>
+                <option value="Tarification">Tarification</option>
+                <option value="Support">Support</option>
+            </select>
+            <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
+            <button type="submit">Envoyer</button>
+            <div class="message" id="form-message"></div>
+        </form>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzsKXJbSgulWeKMgN5P2tm6_2Pw5J_hf8kdkxKtdfkIQuIGKfimoYT8QrykX9gElCVWNA/exec';
+        const form = document.getElementById('contact-form');
+        const message = document.getElementById('form-message');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch(scriptURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.result === "success") {
+                    message.textContent = "Message envoyé avec succès !";
+                    message.style.color = "green";
+                    form.reset();
+                } else {
+                    message.textContent = "Erreur : " + result.message;
+                    message.style.color = "red";
+                }
+            })
+            .catch(error => {
+                message.textContent = "Erreur de soumission.";
+                message.style.color = "red";
+                console.error('Erreur!', error.message);
+            });
+        });
+    </script>
+</body>
+</html>

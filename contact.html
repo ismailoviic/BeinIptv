@@ -26,9 +26,9 @@
 
 <body>
 
-      <!--#include virtual="header" -->
+    <!--#include virtual="header" -->
 
-   
+
 
     <!-- Preloader area start -->
     <div class="loading">
@@ -71,64 +71,93 @@
                 <div class="row g-4">
                     <div class="col-lg-6">
                         <div class="content radius-10 bg-image">
-                            <h2>Have something in mind? <br>
-                                Let's talk.</h2>
-                            <p>Adipiscing elit, sed do eiusmod tempor incididunt ut labore <br> et dolore magna
-                                aliqua.
-                                Ut enim ad minim.</p>
-                            <div class="arry"><img src="assets/images/contact/arry.png" alt=""></div>
+                            <h2>Une Question ? Un Besoin ? <br> Parlons-en.</h2>
+                            <p>
+                                Nous sommes à votre écoute pour toute demande d’abonnement IPTV, assistance technique ou
+                                information. Remplissez le formulaire et notre équipe vous répondra rapidement.
+                            </p>
+                            <div class="arry">
+                                <img src="assets/images/contact/arry.png" alt="">
+                            </div>
                             <ul>
-                                <li><a href="https://www.google.com/maps/d/viewer?mid=1UZ57Drfs3SGrTgh6mrYjQktu6uY&amp;hl=en_US&amp;ll=18.672105000000013%2C105.68673800000003&amp;z=17"
-                                        target="_blank"><i class="fa-solid fa-location-dot"></i>785 15h Street,
-                                        Office
-                                        478
-                                        Berlin </a>
-                                </li>
-                                <li><a href="tel:1-732-798-0976"><i class="fa-solid fa-phone-volume"></i>+1 800
-                                        555 45
-                                        65</a>
-                                </li>
-                                <li><a href="mailto:company.info@mail.com"><i
-                                            class="fa-solid fa-envelope"></i>info.stoky@company.com</a></li>
+                                <li><a href="https://www.google.com"
+                                        target="_blank"><i class="fa-solid fa-location-dot"></i>Service en ligne –
+                                        Disponible partout dans
+                                        le monde</li>
+                                <li><a href="tel:+212667164839"><i class="fa-solid fa-phone-volume"></i>+212 6 67 16 48
+                                        39</a></li>
+                                <li><a href="mailto:contact@beiniptv.com"><i
+                                            class="fa-solid fa-envelope"></i>contact@beiniptv.com</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-area">
-                            <form action="#0">
-                                <input type="text" placeholder="Name">
-                                <input type="email" placeholder="Email">
-                                <select name="subject" id="subject">
-                                    <option value="0">Select Subject</option>
-                                    <option value="0">Account</option>
-                                    <option value="0">Service</option>
-                                    <option value="0">Pricing</option>
-                                    <option value="0">Support</option>
+                            <form id="contact-form">
+                                <input type="text" name="name" id="name" placeholder="Nom" required>
+                                <input type="email" name="email" id="email" placeholder="Email" required>
+                                <select name="subject" id="subject" required>
+                                    <option value="">Sélectionnez le sujet</option>
+                                    <option value="Compte">Compte</option>
+                                    <option value="Service">Service</option>
+                                    <option value="Tarification">Tarification</option>
+                                    <option value="Support">Support</option>
                                 </select>
-                                <textarea name="Your Review" id="massage" placeholder="Message..."></textarea>
-                                <div class="radio-btn mt-2">
+                                <textarea name="message" id="message" placeholder="Message..." required></textarea>
+                                <div class="radio-btn mt-2" required>
                                     <span></span>
-                                    <p>I accept your terms & conditions</p>
+                                    <p>J'accepte vos termes et conditions</p>
                                 </div>
-                                <button class="mt-40 btn-one"><span>Submit Now</span></button>
+                                <button type="submit" class="mt-40 btn-one"><span>Envoyer le message</span></button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <script>
+            document.getElementById('contact-form').addEventListener('submit', function (e) {
+                e.preventDefault(); // Prevent form from refreshing the page
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value.trim();
+                const responseBox = document.getElementById('form-response');
+
+                // Google Apps Script Web App URL
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbwM78PJqzi8jRneC55WIuw6625aEsQG4JKNnMnBQm69bXHdT1K1CB8vcaAPgABRj8JiZg/exec';
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, subject, message })
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.result === "success") {
+                            responseBox.textContent = "Merci ! Votre message a été envoyé avec succès.";
+                            document.getElementById('contact-form').reset();
+                        } else {
+                            responseBox.textContent = "Une erreur s’est produite. Veuillez réessayer.";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        responseBox.textContent = "Une erreur s’est produite. Veuillez réessayer.";
+                    });
+            });
+        </script>
+
+
+
+
         <!-- Contact form area end here -->
 
-        <!-- Contact map area start here -->
-        <div class="google-map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059445134!2d-74.2598661379975!3d40.697149417741365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1670395681365!5m2!1sen!2sbd"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <!-- Contact map area end here -->
     </main>
 
-   
+
     <!--#include virtual="footer" -->
 
     <!-- Back to top area start here -->
