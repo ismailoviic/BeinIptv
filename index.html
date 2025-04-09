@@ -25,7 +25,9 @@
 </head>
 
 <body>
-    <div id="header"></div>
+
+    <!--#include virtual="header" -->
+
     <!-- Preloader area start -->
     <div class="loading">
         <span class="text-capitalize">L</span>
@@ -265,7 +267,7 @@
 
         <!-- Product area start here -->
 
-        <div id="ourPacks"></div>
+        <!--#include virtual="ourPacks" -->
 
         <!-- Product area end here -->
 
@@ -391,8 +393,8 @@
         </section> -->
         <!-- Get now area end here -->
 
-        <div id="text-slider"></div>
-
+        
+    <!--#include virtual="text-slider" -->
 
         <!-- Gallery area start here -->
         <!-- <section class="gallery-area">
@@ -519,7 +521,7 @@
         <!-- Brand area end here -->
     </main>
 
-    <div id="footer"></div>
+    <!--#include virtual="footer" -->
 
     <!-- Back to top area start here -->
     <div class="scroll-up">
@@ -551,24 +553,6 @@
     <script src="assets/js/jquery.waypoints.js"></script>
     <!-- Script Js -->
     <script src="assets/js/script.js"></script>
-
-    <script>
-        fetch('header.html')
-            .then(res => res.text())
-            .then(data => document.getElementById('header').innerHTML = data);
-
-        fetch('footer.html')
-            .then(res => res.text())
-            .then(data => document.getElementById('footer').innerHTML = data);
-
-        fetch('text-slider')
-            .then(res => res.text())
-            .then(data => document.getElementById('text-slider').innerHTML = data);
-
-        fetch('ourPacks')
-            .then(res => res.text())
-            .then(data => document.getElementById('ourPacks').innerHTML = data);
-    </script>
 </body>
 
 </html>
