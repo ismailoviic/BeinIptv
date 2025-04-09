@@ -26,7 +26,7 @@
 
 <body>
 
-    <!--#include virtual="header" -->
+    <div id="header"></div>
 
 
 
@@ -158,7 +158,7 @@
     </main>
 
 
-    <!--#include virtual="footer" -->
+    <div id="text-slider"></div>
 
     <!-- Back to top area start here -->
     <div class="scroll-up">
@@ -190,6 +190,16 @@
     <script src="assets/js/jquery.waypoints.js"></script>
     <!-- Script Js -->
     <script src="assets/js/script.js"></script>
+
+    <script>
+        fetch('header.html')
+            .then(res => res.text())
+            .then(data => document.getElementById('header').innerHTML = data);
+
+        fetch('footer.html')
+            .then(res => res.text())
+            .then(data => document.getElementById('footer').innerHTML = data);
+    </script>
 </body>
 
 </html>
