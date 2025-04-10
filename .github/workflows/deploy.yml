@@ -1,0 +1,24 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # or 'master' if you're using that
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Deploy via SSH
+      uses: appleboy/scp-action@master
+      with:
+        host: ftp://147.79.103.101 # replace with your Hostinger FTP/SFTP domain or IP
+        username: u484370296.beiniptv.advertica.ma   # your Hostinger FTP/SFTP username
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 21
+        source: "."            # everything in the repo
+        target: /home/u484370296/domains/beiniptv.advertica.ma/public_html  # adjust to your real path
